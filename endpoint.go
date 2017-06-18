@@ -15,15 +15,15 @@ type Endpoint struct {
 	// FIXME(mdr): Is this needed/used? Can this safely be deleted?
 }
 
-type endpointAddress byte
-type endpointAttributes byte
+type EndpointAddress byte
+type EndpointAttributes byte
 
 // EndpointDescriptor models the descriptor for a given endpoint.
 type EndpointDescriptor struct {
 	Length          int
 	DescriptorType  descriptorType
-	EndpointAddress endpointAddress
-	Attributes      endpointAttributes
+	EndpointAddress EndpointAddress
+	Attributes      EndpointAttributes
 	MaxPacketSize   uint16
 	Interval        uint8
 	Refresh         uint8
@@ -53,20 +53,20 @@ func (end *EndpointDescriptor) TransferType() transferType {
 	return end.Attributes.transferType()
 }
 
-func (address endpointAddress) direction() endpointDirection {
-	// Bit 7 of the endpointAddress determines the direction
+func (address EndpointAddress) direction() endpointDirection {
+	// Bit 7 of the EndpointAddress determines the direction
 	const directionMask = 0x80
 	const directionBit = 7
 	return endpointDirection(address&directionMask) >> directionBit
 }
 
-func (address endpointAddress) endpointNumber() byte {
+func (address EndpointAddress) endpointNumber() byte {
 	// Bits 0..3 determine the endpoint number
 	const endpointNumberMask = 0x0F
 	return byte(address & endpointNumberMask)
 }
 
-func (attributes endpointAttributes) transferType() transferType {
+func (attributes EndpointAttributes) transferType() transferType {
 	// Bits 0..1 of the bmAttributes determines the transfer type
 	const transferTypeMask = 0x03
 	return transferType(attributes & transferTypeMask)

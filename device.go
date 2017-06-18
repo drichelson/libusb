@@ -73,7 +73,7 @@ func (dev *Device) GetPortNumber() (int, error) {
 // instead. It simply returns the wMaxPacketSize value without considering its
 // contents. If you're dealing with isochronous transfers, you probably want
 // libusb_get_max_iso_packet_size() instead." (Source: libusb docs)
-func (dev *Device) GetMaxPacketSize(ep endpointAddress) (int, error) {
+func (dev *Device) GetMaxPacketSize(ep EndpointAddress) (int, error) {
 	maxPacketSize, err := C.libusb_get_max_packet_size(dev.libusbDevice, C.uchar(ep))
 	if err != nil {
 		return 0, fmt.Errorf("wMaxPacketSize is unavailable for device %v", dev)
@@ -231,8 +231,8 @@ func (dev *Device) GetActiveConfigDescriptor() (*ConfigDescriptor, error) {
 				endpointDescriptor := EndpointDescriptor{
 					Length:          int(libusbEndpointDescriptor.bLength),
 					DescriptorType:  descriptorType(libusbEndpointDescriptor.bDescriptorType),
-					EndpointAddress: endpointAddress(libusbEndpointDescriptor.bEndpointAddress),
-					Attributes:      endpointAttributes(libusbEndpointDescriptor.bmAttributes),
+					EndpointAddress: EndpointAddress(libusbEndpointDescriptor.bEndpointAddress),
+					Attributes:      EndpointAttributes(libusbEndpointDescriptor.bmAttributes),
 					MaxPacketSize:   uint16(libusbEndpointDescriptor.wMaxPacketSize),
 				}
 				endpointDescriptors = append(endpointDescriptors, &endpointDescriptor)

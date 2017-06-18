@@ -122,7 +122,7 @@ const (
 	// 128 instead of 1. Therefore, I'm not using C.LIBUSB_ENDPOINT_IN (128).
 	endpointOut   endpointDirection = C.LIBUSB_ENDPOINT_OUT
 	endpointIn    endpointDirection = C.LIBUSB_ENDPOINT_IN
-	directionMask endpointAddress   = 0x80
+	directionMask EndpointAddress   = 0x80
 	directionBit                    = 7
 )
 

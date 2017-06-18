@@ -12,7 +12,7 @@ import "unsafe"
 
 // BulkTransfer implements libusb_bulk_transfer to perform a USB bulk transfer.
 func (dh *DeviceHandle) BulkTransfer(
-	endpoint endpointAddress,
+	endpoint EndpointAddress,
 	data []byte,
 	length int,
 	timeout int,
@@ -34,7 +34,7 @@ func (dh *DeviceHandle) BulkTransfer(
 
 // BulkTransferOut is a helper method that performs a USB bulk output transfer.
 func (dh *DeviceHandle) BulkTransferOut(
-	endpoint endpointAddress,
+	endpoint EndpointAddress,
 	data []byte,
 	timeout int,
 ) (int, error) {
@@ -48,7 +48,7 @@ func (dh *DeviceHandle) BulkTransferOut(
 
 // BulkTransferIn is a helper method that performs a USB bulk input transfer.
 func (dh *DeviceHandle) BulkTransferIn(
-	endpoint endpointAddress,
+	endpoint EndpointAddress,
 	maxReceiveBytes int,
 	timeout int,
 ) ([]byte, int, error) {
@@ -94,7 +94,7 @@ func (dh *DeviceHandle) ControlTransfer(
 
 // InterruptTransfer performs a USB interrupt transfer.
 func (dh *DeviceHandle) InterruptTransfer(
-	endpoint endpointAddress,
+	endpoint EndpointAddress,
 	data []byte,
 	length int,
 	timeout int,
